@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Imagens do Satélite EPIC - NASA (via Proxy)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #000;
+      color: #fff;
+    }
+    img {
+      max-width: 90%;
+      border: 5px solid #00aaff;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .loading {
+      font-size: 18px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Última Imagem da Terra (NASA EPIC via Proxy)</h1>
+  <p class="loading">Carregando imagem...</p>
+  <img id="epicImage" src="" alt="Imagem da Terra">
+  <div id="errorInfo" style="color: red; margin-top: 20px;"></div>
+  
+  <script>
+    async function carregarImagem() {
+      try {
+        // Usa o proxy para evitar problemas de CORS
+        const apiUrl = 'https://api.nasa.gov/EPIC/api/natural';
+        const response = await fetch(`api/proxy.php?url=${encodeURIComponent(apiUrl)}`);
+        
+        if (!response.ok) {
+          throw new Error(`Erro na resposta: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (!data || data.length === 0) {
+          document.querySelector('.loading').innerText = "Nenhuma imagem disponível no momento.";
+          return;
+        }
+
+        const ultimaImagem = data[0];
+        const dataImagem = ultimaImagem.date.split(" ")[0]; // yyyy-mm-dd
+        const [ano, mes, dia] = dataImagem.split("-");
+
+        // URL da imagem EPIC
+        const urlImagem = `https://epic.gsfc.nasa.gov/archive/natural/${ano}/${mes}/${dia}/png/${ultimaImagem.image}.png`;
+        
+        // Usa o proxy para buscar a imagem também
+        const imageProxyUrl = `api/proxy.php?url=${encodeURIComponent(urlImagem)}`;
+        
+        document.getElementById("epicImage").src = imageProxyUrl;
+        document.querySelector('.loading').style.display = "none";
+        
+        // Exibe informações adicionais
+        const infoDiv = document.createElement('div');
+        infoDiv.innerHTML = `
+          <h3>Informações da Imagem</h3>
+          <p>Data: ${ultimaImagem.date}</p>
+          <p>Identificador: ${ultimaImagem.identifier}</p>
+          <p>Coordenadas: Lat ${ultimaImagem.centroid_coordinates.lat.toFixed(2)}, Lon ${ultimaImagem.centroid_coordinates.lon.toFixed(2)}</p>
+        `;
+        document.body.appendChild(infoDiv);
+      } catch (erro) {
+        document.querySelector('.loading').innerText = "Erro ao carregar imagem.";
+        document.getElementById("errorInfo").innerText = `Detalhes do erro: ${erro.message}`;
+        console.error(erro);
+      }
+    }
+
+    carregarImagem();
+  </script>
+</body>
+</html>

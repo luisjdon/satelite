@@ -1,0 +1,22 @@
+Estou desenvolvendo um site em PHP chamado SatéliteVision que mostra imagens de satélites em tempo real usando APIs da NASA e outras fontes. O site está estruturado, mas as câmeras não estão carregando nenhuma imagem, apenas ficam no estado de "carregando".
+
+Estrutura do projeto:
+- config.php: Contém as chaves de API e configurações
+- includes/api_functions.php: Funções para comunicação com as APIs
+- api/earth_data.php, api/space_data.php, api/iss_location.php: Endpoints que chamam as APIs externas
+- js/main.js: JavaScript que carrega os dados das APIs e atualiza a interface
+
+O problema:
+- Nenhuma câmera/imagem está carregando, todas ficam apenas no estado de "carregando"
+- Já criei o diretório de cache
+- Já verifiquei que as chaves de API estão corretas
+- Já adicionei tratamento de erros nas funções
+- Já adicionei imagens de fallback
+
+Como posso diagnosticar e corrigir esse problema? Suspeito que pode ser:
+1. Problema com as chamadas AJAX no JavaScript
+2. Problema com o formato da resposta das APIs
+3. Problema com o CORS (Cross-Origin Resource Sharing)
+4. Problema com o PHP não conseguindo fazer requisições externas
+
+Por favor, forneça um passo a passo detalhado para diagnosticar e corrigir esse problema, incluindo código específico que eu deveria verificar e modificar.

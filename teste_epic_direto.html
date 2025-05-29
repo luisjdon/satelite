@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Imagens do Satélite EPIC - NASA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #000;
+      color: #fff;
+    }
+    img {
+      max-width: 90%;
+      border: 5px solid #00aaff;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .loading {
+      font-size: 18px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Última Imagem da Terra (NASA EPIC)</h1>
+  <p class="loading">Carregando imagem...</p>
+  <img id="epicImage" src="" alt="Imagem da Terra">
+  <script>
+    const API_KEY = "NRw74G5LCiPZfCSPqN0QzeBD0GFCxtRJ20R2mX4D";
+
+    async function carregarImagem() {
+      try {
+        const response = await fetch(`https://api.nasa.gov/EPIC/api/natural?api_key=${API_KEY}`);
+        const data = await response.json();
+        
+        if (!data || data.length === 0) {
+          document.querySelector('.loading').innerText = "Nenhuma imagem disponível no momento.";
+          return;
+        }
+
+        const ultimaImagem = data[0];
+        const dataImagem = ultimaImagem.date.split(" ")[0]; // yyyy-mm-dd
+        const [ano, mes, dia] = dataImagem.split("-");
+
+        const urlImagem = `https://epic.gsfc.nasa.gov/archive/natural/${ano}/${mes}/${dia}/png/${ultimaImagem.image}.png`;
+
+        document.getElementById("epicImage").src = urlImagem;
+        document.querySelector('.loading').style.display = "none";
+      } catch (erro) {
+        document.querySelector('.loading').innerText = "Erro ao carregar imagem.";
+        console.error(erro);
+      }
+    }
+
+    carregarImagem();
+  </script>
+</body>
+</html>

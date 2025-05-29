@@ -1,0 +1,1 @@
+Esta é uma imagem padrão do satélite GOES. Substitua este arquivo por uma imagem real .jpg ou .png com o nome goes-default.jpg

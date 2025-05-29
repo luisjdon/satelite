@@ -1,0 +1,1 @@
+Esta é uma imagem de amostra do Landsat. Substitua este arquivo por uma imagem real .jpg ou .png com o nome landsat-sample1.jpg
