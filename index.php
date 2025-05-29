@@ -221,7 +221,7 @@ render_header('Página Inicial', 'Visualização de imagens de satélites em tem
     // Função para buscar a imagem astronômica do dia da NASA
     function fetchAPOD() {
         // API Key da NASA
-        const apiKey = "NRw74G5LCiPZfCSPqN0QzeBD0GFCxtRJ20R2mX4D";
+        const apiKey = "API";
         
         // URL da API APOD da NASA
         const url = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
