@@ -15,9 +15,9 @@ $config = [
 
 // Chaves de API (substitua pelos valores reais quando for fazer o upload)
 $api_keys = [
-    'nasa' => 'NRw74G5LCiPZfCSPqN0QzeBD0GFCxtRJ20R2mX4D',  // Chave obtida em https://api.nasa.gov/
-    'eonet' => 'NRw74G5LCiPZfCSPqN0QzeBD0GFCxtRJ20R2mX4D', // Mesma chave NASA para EONET
-    'goes' => 'NRw74G5LCiPZfCSPqN0QzeBD0GFCxtRJ20R2mX4D',   // Mesma chave NASA para GOES
+    'nasa' => 'API',  // Chave obtida em https://api.nasa.gov/
+    'eonet' => 'API', // Mesma chave NASA para EONET
+    'goes' => 'API',   // Mesma chave NASA para GOES
 ];
 
 // URLs das APIs
